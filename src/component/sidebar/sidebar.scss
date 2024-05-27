@@ -11,23 +11,24 @@
  
 }
 .sidebar {
-  margin-top: 98px;
-  position: fixed;
-  width: 19%;
+  
+  position: sticky;
+  width: 20%;
   color: white;
   background-color: $black-secondary;
   transition: transform 0.2s ease-in;
-  
+  top: 10vh;
   overflow-x: hidden;
-  height: calc(100% - 98px);
-  z-index: 1001;
-  left: 0;
+  height: 90vh;
+ 
+
  
 
   .sidebar1 {
     flex-direction: column;
     margin-left: 25px;
     margin-top: 25px;
+    
     .home {
       display: flex;
       align-items: center;
