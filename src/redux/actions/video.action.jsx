@@ -1,4 +1,4 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, SEARCH_VIDEO_FAIL, SEARCH_VIDEO_REQUEST, SEARCH_VIDEO_SUCCESS, SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from "../actionType";
+import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEO_FAIL, RELATED_VIDEO_REQUEST, RELATED_VIDEO_SUCCESS,   SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from "../actionType";
 import request from '../../api';
 
 export const getPopularVideos = () => async(dispatch,getState) => {
@@ -93,34 +93,61 @@ export const getVideoById =(id)=> async dispatch=>{
   }
 }
 
-export const getVideosBySearch = (keyword) => async (dispatch) => {
+export const getRelatedVideos =(id)=> async dispatch=>{
   try {
     dispatch({
-      type: SEARCH_VIDEO_REQUEST,
-    });
+      type: RELATED_VIDEO_REQUEST,
+    })
+   const {data}= await request('/search',{
+      params:{
+        part:'snippet',
+        relatedToVideoId:id,
+        maxResults:15,
+        type:'video'
+      }
+    })
+    dispatch({
+      type: RELATED_VIDEO_SUCCESS,
+      payload: data.items,
+    })
+  } catch (error) {
+    console.log(error.response.data.message)
+    dispatch({
+      type: RELATED_VIDEO_FAIL,
+      payload:error.response.data.message,
+    })
+  }
+}
 
-    const { data } = await request("/search", {
-      params: {
-        part: "snippet",
+
+// export const getVideosBySearch = (keyword) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: SEARCH_VIDEO_REQUEST,
+//     });
+
+//     const { data } = await request("/search", {
+//       params: {
+//         part: "snippet",
       
         
-        maxResults: 25,
+//         maxResults: 25,
       
-        q: keyword,
-        type:'video,channel'
-      },
-    });
+//         q: keyword,
+//         type:'video,channel'
+//       },
+//     });
 
-    dispatch({
-      type: SEARCH_VIDEO_SUCCESS,
-      payload: data.items
-    });
+//     dispatch({
+//       type: SEARCH_VIDEO_SUCCESS,
+//       payload: data.items
+//     });
 
-  } catch (error) {
-    console.error("Error fetching popular videos:", error);
-    dispatch({
-      type: SEARCH_VIDEO_FAIL,
-      payload: error.message,
-    });
-  }
-};
+//   } catch (error) {
+//     console.error("Error fetching popular videos:", error);
+//     dispatch({
+//       type: SEARCH_VIDEO_FAIL,
+//       payload: error.message,
+//     });
+//   }
+// };
