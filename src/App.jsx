@@ -33,6 +33,15 @@ const App = () => {
         }
       />
       <Route
+        path="/search/:query"
+        exact
+        element={
+          <Layout>
+            <h1>Search Results</h1>
+          </Layout>
+        }
+      />
+      <Route
         path="/watch/:id"
         exact
         element={

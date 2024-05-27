@@ -2,6 +2,7 @@ import React from "react";
 import "./header.scss";
 import { FaBars } from "react-icons/fa";
 const Header = () => {
+  
   return (
     <div className="border border-dark header">
       <div className="header__left">
