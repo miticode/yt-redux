@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./header.scss";
 import { FaBars } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   
+const [input,setInput]= useState('')
+
+const history = useNavigate()
+
+const handleSubmit =(e)=>{
+  e.preventDefault()
+  history(`search/${input}`)
+}
+
+
   return (
     <div className="border border-dark header">
       <div className="header__left">
@@ -53,8 +64,8 @@ const Header = () => {
         <span>VN</span>
       </div>
 
-      <form>
-        <input type="text" placeholder="Search" />
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Search" value={input} onChange={e=>setInput(e.target.value)} />
         <button type="submit">
           <svg
             xmlns="http://www.w3.org/2000/svg"

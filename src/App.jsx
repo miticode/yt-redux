@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import HomeScreen from "./screen/homeScreen/HomeScreen";
 import "./app.scss";
 import WatchScreen from "./screen/watchSreen/WatchScreen";
+import SearchScreen from "./screen/SearchScreen";
 
 const Layout = ({ children }) => {
   return (
@@ -37,7 +38,7 @@ const App = () => {
         exact
         element={
           <Layout>
-            <h1>Search Results</h1>
+            <SearchScreen/>
           </Layout>
         }
       />
