@@ -1,0 +1,622 @@
+@import "../../base.scss";
+.sidebar::-webkit-scrollbar {
+  width: 5px; 
+
+}
+
+
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #888; 
+ 
+}
+.sidebar {
+  margin-top: 98px;
+  position: fixed;
+  width: 19%;
+  color: white;
+  background-color: $black-secondary;
+  transition: transform 0.2s ease-in;
+  
+  overflow-x: hidden;
+  height: calc(100% - 98px);
+  z-index: 1001;
+  left: 0;
+ 
+
+  .sidebar1 {
+    flex-direction: column;
+    margin-left: 25px;
+    margin-top: 25px;
+    .home {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      background-color: #222222;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .home:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .short {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word2 {
+        font-size: 15px;
+      }
+    }
+    .short:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .sub {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word3 {
+        font-size: 15px;
+      }
+    }
+    .sub:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+  }
+  .line {
+    margin-top: 20px;
+    margin-right: 10px;
+    border: none;
+    border-top: 1px solid #444;
+  }
+  .you {
+    display: flex;
+    gap: 20px;
+    margin-left: 25px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    border-radius: 20px 20px;
+    cursor: pointer;
+    .yword {
+      font-size: 22px;
+    }
+    .yicon {
+      margin-top: 5px;
+    }
+  }
+  .you:hover {
+    background-color: #3f3f3f;
+    transition: 0.5s;
+  }
+  .sidebar2 {
+    flex-direction: column;
+    margin-left: 25px;
+    margin-top: 5px;
+    .channel {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .channel:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .history {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word2 {
+        font-size: 15px;
+      }
+    }
+    .history:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .playlist {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word3 {
+        font-size: 15px;
+      }
+    }
+    .playlist:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .Yourvideo {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word3 {
+        font-size: 15px;
+      }
+    }
+    .Yourvideo:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .watchlater {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word3 {
+        font-size: 15px;
+      }
+    }
+    .watchlater:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .like {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word3 {
+        font-size: 15px;
+      }
+    }
+    .like:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+  }
+  .supword {
+    font-size: 20px;
+    margin-left: 45px;
+    margin-top: 15px;
+  }
+  .sidebar3 {
+    margin-top: 15px;
+    margin-left: 20px;
+    .killerqueen {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .killerqueen:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+
+    .emche {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .emche:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .mixi {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .mixi:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .sep {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .sep:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .vu {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .vu:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .lol {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .lol:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .valo {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+      }
+    }
+    .valo:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .showmore {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: 8px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .showicon {
+        font-size: 17px;
+      }
+      .showord {
+        font-size: 17px;
+      }
+    }
+    .showmore:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+  }
+  .sidebar4 {
+    flex-direction: column;
+    margin-left: 25px;
+    margin-top: 10px;
+    .trending {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .trending:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .music {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .music:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .game {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .game:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .new {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .new:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .sport {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .sport:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+  }
+  .sidebar5 {
+    flex-direction: column;
+    margin-left: 25px;
+    margin-top: 10px;
+    .prenium {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+
+    .prenium:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .stu {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .stu:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .ytmu {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .ytmu:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .kid {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .kid:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+  }
+  .sidebar6 {
+    flex-direction: column;
+    margin-left: 25px;
+    margin-top: 10px;
+    .setting {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .setting:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .rp {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .rp:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .help {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .help:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+    .send {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 5px;
+      padding: 10px 20px;
+      border-radius: 20px 20px;
+      cursor: pointer;
+      .word1 {
+        font-size: 15px;
+      }
+    }
+    .send:hover {
+      background-color: #3f3f3f;
+      transition: 0.5s;
+    }
+  }
+  .sidebar7 {
+    margin-left: 30px;
+    margin-top: 15px;
+    margin-bottom: 100px;
+    .about {
+      display: flex;
+      gap: 20px;
+      margin: 10px 0px;
+    }
+    .ll {
+      margin: 10px 0px;
+    }
+  }
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: $breakpoint-medium) {
+  .sidebar {
+    width: 90px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: $breakpoint-small) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 999;
+  }
+}
