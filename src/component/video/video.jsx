@@ -4,6 +4,7 @@ import { AiFillEye } from "react-icons/ai";
 import request from "../../api";
 import moment from "moment";
 import numeral from "numeral";
+import {  useNavigate } from "react-router-dom";
 function Video({ video }) {
   const {
     id,
@@ -23,6 +24,8 @@ function Video({ video }) {
   const seconds = moment.duration(duration).asSeconds();
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
  const _videoId=id?.videoId|| id;
+
+const history = useNavigate()
 
   useEffect(() => {
     const get_video_details = async () => {
@@ -55,8 +58,12 @@ function Video({ video }) {
     get_channel_icon();
   }, [channelId]);
 
+const handleVideoClick =()=>{
+history(`/watch/${_videoId}`);
+}
+
   return (
-    <div className="video">
+    <div className="video" onClick={handleVideoClick}>
       <div className="video__top">
         <img src={medium.url} alt="" />
         <span>{_duration}</span>
