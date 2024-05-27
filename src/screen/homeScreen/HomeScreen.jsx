@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CategoriesBar from "../../component/categoriesBar/categoriesBar";
 import Video from "../../component/video/video";
 import { useDispatch, useSelector } from "react-redux";
-import { getPopularVideos } from "../../redux/actions/video.action";
+import { getPopularVideos, getVideosByCategory } from "../../redux/actions/video.action";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -13,9 +13,13 @@ useEffect(()=>{
 dispatch(getPopularVideos())
 },[dispatch])
 
-const{videos}= useSelector(state=> state.homeVideos)
+const{videos,activeCategory}= useSelector(state=> state.homeVideos)
 const fetchData =()=>{
-
+  if(activeCategory==="All")
+dispatch(getPopularVideos())
+  else{
+    dispatch(getVideosByCategory(activeCategory))
+  }
 }
 
   return (
