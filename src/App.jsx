@@ -11,9 +11,9 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="app__container border border-info">
+      <div className="app__container ">
         <Sidebar />
-        <Container fluid className="app__main border border-warning">
+        <Container fluid className="app__main ">
           {children}
         </Container>
       </div>
