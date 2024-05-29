@@ -1,18 +1,22 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, RELATED_VIDEO_FAIL, RELATED_VIDEO_REQUEST, RELATED_VIDEO_SUCCESS,   SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from "../actionType";
 import request from '../../api';
+import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, SEARCHED_VIDEO_FAIL, SEARCHED_VIDEO_REQUEST, SEARCHED_VIDEO_SUCCESS, SELECTED_VIDEO_FAIL, SELECTED_VIDEO_REQUEST, SELECTED_VIDEO_SUCCESS } from "../actionType";
 
-export const getPopularVideos = () => async(dispatch,getState) => {
+// Hằng số
+const API_URL = '/videos';
+const SEARCH_API_URL = '/search';
+const SNIPPET_PART = 'snippet';
+const MAX_RESULTS = 25;
+
+export const getPopularVideos = () => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: HOME_VIDEOS_REQUEST,
-    });
+    dispatch({ type: HOME_VIDEOS_REQUEST });
 
-    const { data } = await request("/videos", {
+    const { data } = await request(API_URL, {
       params: {
-        part: "snippet,contentDetails,statistics",
-        chart: "mostPopular",
-        regionCode: "VN",
-        maxResults: 25,
+        part: `${SNIPPET_PART},contentDetails,statistics`,
+        chart: 'mostPopular',
+        regionCode: 'VN',
+        maxResults: MAX_RESULTS,
         pageToken: getState().homeVideos.nextPageToken,
       },
     });
@@ -25,7 +29,6 @@ export const getPopularVideos = () => async(dispatch,getState) => {
         category: 'All',
       },
     });
-
   } catch (error) {
     console.error("Error fetching popular videos:", error);
     dispatch({
@@ -34,21 +37,18 @@ export const getPopularVideos = () => async(dispatch,getState) => {
     });
   }
 };
-export const getVideosByCategory = (keyword) => async (dispatch,getState) => {
-  try {
-    dispatch({
-      type: HOME_VIDEOS_REQUEST,
-    });
 
-    const { data } = await request("/search", {
+export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: HOME_VIDEOS_REQUEST });
+
+    const { data } = await request(SEARCH_API_URL, {
       params: {
-        part: "snippet",
-      
-        
-        maxResults: 25,
+        part: SNIPPET_PART,
+        maxResults: MAX_RESULTS,
         pageToken: getState().homeVideos.nextPageToken,
         q: keyword,
-        type:'video'
+        type: 'video',
       },
     });
 
@@ -57,97 +57,64 @@ export const getVideosByCategory = (keyword) => async (dispatch,getState) => {
       payload: {
         videos: data.items,
         nextPageToken: data.nextPageToken,
-        category: keyword
+        category: keyword,
       },
     });
-
   } catch (error) {
-    console.error("Error fetching popular videos:", error);
+    console.error("Error fetching videos by category:", error);
     dispatch({
       type: HOME_VIDEOS_FAIL,
       payload: error.message,
     });
   }
 };
-export const getVideoById =(id)=> async dispatch=>{
+
+export const getVideoById = (id) => async (dispatch) => {
   try {
-    dispatch({
-      type: SELECTED_VIDEO_REQUEST,
-    })
-   const {data}= await request('/videos',{
-      params:{
-        part:'snippet,statistics',
-        id:id
-      }
-    })
+    dispatch({ type: SELECTED_VIDEO_REQUEST });
+
+    const { data } = await request(API_URL, {
+      params: {
+        part: `${SNIPPET_PART},statistics`,
+        id: id,
+      },
+    });
+
     dispatch({
       type: SELECTED_VIDEO_SUCCESS,
-      payload: data.items[0]
-    })
+      payload: data.items[0],
+    });
   } catch (error) {
-    console.log(error.message)
+    console.error("Error fetching video by ID:", error);
     dispatch({
       type: SELECTED_VIDEO_FAIL,
       payload: error.message,
-    })
+    });
   }
-}
+};
 
-export const getRelatedVideos =(id)=> async dispatch=>{
+export const getVideosBySearch = (keyword) => async (dispatch) => {
   try {
+    dispatch({ type: SEARCHED_VIDEO_REQUEST });
+
+    const { data } = await request(SEARCH_API_URL, {
+      params: {
+        part: SNIPPET_PART,
+        maxResults: MAX_RESULTS,
+        q: keyword,
+        type: 'video,channel',
+      },
+    });
+
     dispatch({
-      type: RELATED_VIDEO_REQUEST,
-    })
-   const {data}= await request('/search',{
-      params:{
-        part:'snippet',
-        relatedToVideoId:id,
-        maxResults: 15,
-        type:'video',
-      }
-    })
-    dispatch({
-      type: RELATED_VIDEO_SUCCESS,
+      type: SEARCHED_VIDEO_SUCCESS,
       payload: data.items,
-    })
+    });
   } catch (error) {
-    console.log(error.response.data.message)
+    console.error("Error fetching videos by search:", error);
     dispatch({
-      type: RELATED_VIDEO_FAIL,
-      payload:error.response.data.message,
-    })
+      type: SEARCHED_VIDEO_FAIL,
+      payload: error.message,
+    });
   }
-}
-
-
-// export const getVideosBySearch = (keyword) => async (dispatch) => {
-//   try {
-//     dispatch({
-//       type: SEARCH_VIDEO_REQUEST,
-//     });
-
-//     const { data } = await request("/search", {
-//       params: {
-//         part: "snippet",
-      
-        
-//         maxResults: 25,
-      
-//         q: keyword,
-//         type:'video,channel'
-//       },
-//     });
-
-//     dispatch({
-//       type: SEARCH_VIDEO_SUCCESS,
-//       payload: data.items
-//     });
-
-//   } catch (error) {
-//     console.error("Error fetching popular videos:", error);
-//     dispatch({
-//       type: SEARCH_VIDEO_FAIL,
-//       payload: error.message,
-//     });
-//   }
-// };
+};

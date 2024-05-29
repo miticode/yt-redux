@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import "./VideoHorizonatal.scss";
-
-import { AiFillEye } from "react-icons/ai";
+import { useEffect, useState } from "react";
 import request from "../../api";
 import moment from "moment";
-import numeral from "numeral";
 import { Col, Row } from "react-bootstrap";
+import { AiFillEye } from "react-icons/ai";
+import numeral from "numeral";
+import { useNavigate } from "react-router-dom";
 
-const VideoHorizonatal = ({ video }) => {
+const VideoHorizontal = ({ video = {}, searchScreen }) => {
   const {
     id,
     snippet: {
@@ -16,77 +15,120 @@ const VideoHorizonatal = ({ video }) => {
       description,
       title,
       publishedAt,
-      thumbnails:{medium},
-    },
+      thumbnails,
+    } = {},
   } = video;
+
+  const isVideo = id && id.kind === "youtube#video";
+
   const [views, setViews] = useState(null);
   const [duration, setDuration] = useState(null);
   const [channelIcon, setChannelIcon] = useState(null);
 
   useEffect(() => {
-    const get_video_details = async () => {
-      const {
-        data: { items },
-      } = await request("/videos", {
-        params: {
-          part: "contentDetails,statistics",
-          id: id.videoId,
-        },
-      });
-      setDuration(items[0].contentDetails.duration);
-      setViews(items[0].statistics.viewCount);
+    const getVideoDetails = async () => {
+      if (id?.videoId) {
+        try {
+          const {
+            data: { items },
+          } = await request("/videos", {
+            params: {
+              part: "contentDetails,statistics",
+              id: id.videoId,
+            },
+          });
+          if (items && items.length > 0) {
+            setDuration(items[0].contentDetails.duration);
+            setViews(items[0].statistics.viewCount);
+          }
+        } catch (error) {
+          console.error("Error fetching video details:", error);
+        }
+      }
     };
-    get_video_details();
-  }, [id]);
+    getVideoDetails();
+  }, [id?.videoId]);
 
   useEffect(() => {
-    const get_channel_icon = async () => {
-      const {
-        data: { items },
-      } = await request("/channels", {
-        params: {
-          part: "snippet",
-          id: channelId,
-        },
-      });
-      setChannelIcon(items[0].snippet.thumbnails.default);
+    const getChannelIcon = async () => {
+      if (channelId) {
+        try {
+          const {
+            data: { items },
+          } = await request("/channels", {
+            params: {
+              part: "snippet",
+              id: channelId,
+            },
+          });
+          if (items && items.length > 0) {
+            setChannelIcon(items[0].snippet.thumbnails.default.url);
+          }
+        } catch (error) {
+          console.error("Error fetching channel icon:", error);
+        }
+      }
     };
-    get_channel_icon();
+    getChannelIcon();
   }, [channelId]);
 
   const seconds = moment.duration(duration).asSeconds();
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
+  const history = useNavigate();
+  const handleClick = () => {
+    isVideo
+      ? history(`/watch/${id.videoId}`)
+      : history(`/channel/${id.channelId}`);
+  };
+
+  if (!thumbnails?.medium) {
+    return null;
+  }
+
+  const thumbnail = !isVideo && "videoHorizontal__thumbnail-channel";
+
   return (
-    <Row className="videoHorizontal m-1 py-2 align-items-center">
-      <Col xs={6} md={4} className="videoHorizontal__left">
-        <img
-          src={medium.url}
-          alt=""
-          effect='blur'
-          className="videoHorizontal__thumbnail"
-          wrapperClassName="videoHorizontal__thumbnail-wrapper"
-        />
-       <span className='videoHorizontal__duration'>{_duration}</span>
-      </Col>
-      <Col xs={6} md={8} className="videoHorizontal__right p-0">
-        <p className="videoHorizontal__title mb-1">
-          {title}
-        </p>
-        <div className="videoHorizontal__details">
-          <AiFillEye /> {numeral(views).format("0.a")} views •
-          {moment(publishedAt).fromNow()}
+    <Row
+      className="videoHorizontal m-1 py-2 align-items-center"
+      onClick={handleClick}
+    >
+      <Col xs={6} md={searchScreen ? 4 : 6} className="videoHorizontal__left">
+        <div className="videoHorizontal__thumbnail-wrapper">
+          <img
+            src={thumbnails.medium.url}
+            alt=""
+            className={`videoHorizontal__thumbnail ${thumbnail}`}
+            wrapperClassName="videoHorizontal__thumbnail-wrapper"
+          />
+          {isVideo && (
+            <span className="videoHorizontal__duration">{_duration}</span>
+          )}
         </div>
+      </Col>
+      <Col
+        xs={6}
+        md={searchScreen ? 8 : 6}
+        className="videoHorizontal__right p-0"
+      >
+        <p className="videoHorizontal__title mb-1">{title}</p>
+
+        {isVideo && (
+          <div className="videoHorizontal__details">
+            <AiFillEye /> {views ? numeral(views).format("0.a") : "N/A"} views •{" "}
+            {moment(publishedAt).fromNow()}
+          </div>
+        )}
+
+        {isVideo && <p className="mt-1">{description}</p>}
+
         <div className="videoHorizontal__channel d-flex align-items-center my-1">
-          {/* <img
-          src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/fcc363d8-dbb8-4004-999f-28a92a7de8d0/depg1h0-28e48d84-7090-4d88-825c-1a0f8055d085.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2ZjYzM2M2Q4LWRiYjgtNDAwNC05OTlmLTI4YTkyYTdkZThkMFwvZGVwZzFoMC0yOGU0OGQ4NC03MDkwLTRkODgtODI1Yy0xYTBmODA1NWQwODUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.u3ODB7kmv6AAgrGBIeZaxRDOcq1Uyw2gEEOKMOxBpQA"
-          alt=""
-         
-        /> */}
-          <p>{channelTitle}</p>
+          {isVideo && <img src={channelIcon?.url} />}
+          <p className="mb-0">{channelTitle}</p>
         </div>
       </Col>
     </Row>
   );
 };
 
-export default VideoHorizonatal;
+export default VideoHorizontal;

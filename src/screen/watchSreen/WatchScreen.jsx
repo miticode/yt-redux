@@ -2,14 +2,12 @@ import React, { useEffect } from "react";
 import "./watchSreen.scss";
 import { Col, Row } from "react-bootstrap";
 import VideoMetaData from "../../component/videoMetaData/VideoMetaData";
-import VideoHorizonatal from "../../component/videoHorizonatal/VideoHorizonatal";
+
 import Comments from "../../component/comment/Comments";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getRelatedVideos,
-  getVideoById,
-} from "../../redux/actions/video.action";
+import { getVideoById } from "../../redux/actions/video.action";
+import VideoHorizontal from "../../component/videoHorizonatal/VideoHorizonatal";
 const WatchScreen = () => {
   const { id } = useParams();
 
@@ -17,15 +15,9 @@ const WatchScreen = () => {
 
   useEffect(() => {
     dispatch(getVideoById(id));
-
-    dispatch(getRelatedVideos(id));
   }, [dispatch, id]);
 
-  const {videos,loading:relatedVideosLoading} = useSelector(state => state.relatedVideos)
-   
-
-
-  const { video, loading } = useSelector(state => state.selectedVideo)
+  const { video, loading } = useSelector((state) => state.selectedVideo);
   return (
     <Row>
       <Col lg={8}>
@@ -42,18 +34,15 @@ const WatchScreen = () => {
         {!loading ? (
           <VideoMetaData video={video} videoId={id} />
         ) : (
-          <h6>Loading...</h6> 
+          <h6>Loading...</h6>
         )}
 
         <Comments />
       </Col>
       <Col lg={4}>
-        {!loading &&
-          videos
-            ?.filter(video => video.snippet)
-            .map((video) => (
-              <VideoHorizonatal video={video} key={video.id.videoId} />
-            ))}
+        {[...Array(10)].map(() => (
+          <VideoHorizontal />
+        ))}
       </Col>
     </Row>
   );

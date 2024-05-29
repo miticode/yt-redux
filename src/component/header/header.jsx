@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./header.scss";
 import { FaBars } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   
 const [input,setInput]= useState('')
@@ -18,6 +18,7 @@ const handleSubmit =(e)=>{
     <div className="border border-dark header">
       <div className="header__left">
         <FaBars className="header__menu" size={26}  />
+        <Link to={"/"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           id="yt-logo-updated-svg_yt6"
@@ -27,7 +28,7 @@ const handleSubmit =(e)=>{
           style={{
             pointerEvents: "none",
             display: "inherit",
-            width: "30%",
+            width: "40%",
             height: "100%",
             fill: "white",
           }}
@@ -60,8 +61,8 @@ const handleSubmit =(e)=>{
               </g>
             </g>
           </svg>
-        </svg>
-        <span>VN</span>
+        </svg></Link>
+     
       </div>
 
       <form onSubmit={handleSubmit}>
