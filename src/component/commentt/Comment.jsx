@@ -14,7 +14,7 @@ const Comment = () => {
                 TRIS • {moment('2020-05-05').fromNow()}
             </p>
             <p className='mb-0'>
-                Hay VAI lon
+                Hay the ban
             </p>
           </div>
     </div>
